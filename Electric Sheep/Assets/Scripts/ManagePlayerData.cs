@@ -13,16 +13,17 @@ public static class ManagePlayerData
 
         PlayerPrefs.SetString("lastCo", System.DateTime.UtcNow.ToBinary().ToString());
         
-        Debug.Log("Saving this date to prefs: " + System.DateTime.UtcNow);
+        Debug.Log("Auto-Saving this date to prefs: " + System.DateTime.UtcNow);
     }
 
     public static void QuitApp()
     {
-        //Savee the current system time as a string in the player prefs class
+        //Save the current system time as a string in the player prefs class
         PlayerPrefs.SetString("lastCo", System.DateTime.UtcNow.ToBinary().ToString());
 
         Debug.Log("Saving this date to prefs: " + System.DateTime.UtcNow);
 
         Application.Quit();
     }
+
 }

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Sheep
+  - Player name
+  - Sheep name
   layers:
   - Default
   - TransparentFX
