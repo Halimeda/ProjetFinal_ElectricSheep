@@ -8,15 +8,24 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager gm;
+
     private DateTime startTime;
     private DateTime lastConnexion;
     private long temp;
-    private int waitTime = 5;
+    private int waitTime = 10;
 
-    TimeSpan lastCoDiff;
+    private float mood;
+    private float food;
+    private float clean;
+    private float mecanic;
+
+    private bool checkAutoSave;
+    private TimeSpan timeDiff;
+    private DateTime lastStatModif;
 
     private void Awake()
     {
+        PlayerPrefs.DeleteAll();
         startTime = DateTime.UtcNow;
         if (gm == null)
         {
@@ -42,17 +51,26 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("isnewgame");
             PlayerPrefs.SetString("isNewGame", "false");
-            SceneManager.LoadScene("NewGameOpenScene");
+            PlayerPrefs.SetFloat("mood", 80);
+            PlayerPrefs.SetFloat("food", 80);
+            PlayerPrefs.SetFloat("clean", 80);
+            PlayerPrefs.SetFloat("mecanic", 90);
+            StartCoroutine(NewSceneWaitandStart());
+
         }
         else if (PlayerPrefs.HasKey("isNewGame") == true && SceneManager.GetActiveScene().name == "StartScreen")
         {
             Debug.Log("Only on start scene");
-
-            StartCoroutine(WaitandStartMainScene());
+            StartCoroutine(MainSceneWaitandStart());
         }
 
+        checkAutoSave = false;
+        mood = PlayerPrefs.GetFloat("mood");
+        food = PlayerPrefs.GetFloat("food");
+        clean = PlayerPrefs.GetFloat("clean");
+        mecanic = PlayerPrefs.GetFloat("mecanic");
 
-        lastCoDiff = this.FromLastConnexion(startTime);
+        timeDiff = this.FromLastConnexion(startTime);
         //Debug.Log(lastCoDiff + "Timespan last co");
     }
 
@@ -60,12 +78,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TimeSpan calculateTime = -(startTime - DateTime.UtcNow); // Calculate Time Differences between start time and this frame !
-        //Debug.Log(calculateTime + "Calculate time");
-        ManagePlayerData.AutoSave();
+        if(checkAutoSave == false)
+        {
+            StartCoroutine(AutoSave());
+            checkAutoSave = true;
+            Debug.Log("start coroutine");
+        }
+        Debug.Log("update");
         //Debug.Log(PlayerPrefs.GetString("lastCo") + "Player prefs lastco");
-
-
     }
 
     public TimeSpan FromLastConnexion(DateTime startTime)
@@ -83,23 +103,33 @@ public class GameManager : MonoBehaviour
         return difference;
     }
 
-    public void playerName()
-    {
-        Debug.Log("PlayerName");
-       
 
-    }
-
-    public void sheepName()
-    {
-
-    }
-
-    IEnumerator WaitandStartMainScene()
+    IEnumerator MainSceneWaitandStart()
     {
         yield return new WaitForSeconds(waitTime);
         SceneManager.LoadScene("MainScene");
     }
 
+    IEnumerator NewSceneWaitandStart()
+    {
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene("NewGameOpenScene");
 
+    }
+
+    IEnumerator AutoSave()
+    {
+        Debug.Log(food);
+        yield return new WaitForSeconds(120);
+
+        //Modify Statistique before autosave.
+        TimeSpan dif = lastStatModif.Subtract(DateTime.UtcNow); //Calculate difference of time between lastautosave and now before modify stat
+        StatModifier.foodModifier(food, dif);
+        StatModifier.moodModifier(mood, dif);
+        StatModifier.mecanicModifier(mecanic, dif);
+        StatModifier.cleanModifier(clean, dif);
+        lastStatModif = DateTime.UtcNow;
+        checkAutoSave = false;
+        ManagePlayerData.AutoSave();
+    }
 }
