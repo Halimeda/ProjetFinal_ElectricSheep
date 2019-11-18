@@ -124,12 +124,12 @@ public class GameManager : MonoBehaviour
 
         //Modify Statistique before autosave.
         TimeSpan dif = lastStatModif.Subtract(DateTime.UtcNow); //Calculate difference of time between lastautosave and now before modify stat
-        StatModifier.foodModifier(food, dif);
-        StatModifier.moodModifier(mood, dif);
-        StatModifier.mecanicModifier(mecanic, dif);
-        StatModifier.cleanModifier(clean, dif);
         lastStatModif = DateTime.UtcNow;
+        food = StatModifier.foodModifier(food, dif);
+        mood = StatModifier.moodModifier(mood, dif);
+        mecanic = StatModifier.mecanicModifier(mecanic, dif);
+        clean = StatModifier.cleanModifier(clean, dif);
         checkAutoSave = false;
-        ManagePlayerData.AutoSave();
+        ManagePlayerData.AutoSave(mood, food, clean, mecanic);
     }
 }

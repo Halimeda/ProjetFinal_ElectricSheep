@@ -8,11 +8,16 @@ public static class ManagePlayerData
 
 
 
-    public static void AutoSave() //Add Sheep Stats
+    public static void AutoSave(float mood, float food, float clean, float mecanic) //Add Sheep Stats
     {
 
         PlayerPrefs.SetString("lastCo", System.DateTime.UtcNow.ToBinary().ToString());
-        
+
+        PlayerPrefs.SetFloat("mood", mood);
+        PlayerPrefs.SetFloat("food", food);
+        PlayerPrefs.SetFloat("clean", clean);
+        PlayerPrefs.SetFloat("mecanic", mecanic);
+
         Debug.Log("Auto-Saving this date to prefs: " + System.DateTime.UtcNow);
     }
 
