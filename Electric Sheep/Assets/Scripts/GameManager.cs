@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager gm;
+    public RangeInt 
 
     private DateTime startTime;
     private DateTime lastConnexion;
@@ -25,7 +26,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        PlayerPrefs.DeleteAll();
         startTime = DateTime.UtcNow;
         if (gm == null)
         {
@@ -36,13 +36,14 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        PlayerPrefs.DeleteAll();
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
         //Debug.Log(startTime + "Strart Time");
         //Debug.Log(PlayerPrefs.GetString("lastCo") + "Player prefs lastco");
         PlayerPrefs.SetString("lastCo", System.DateTime.Now.ToBinary().ToString());
@@ -88,6 +89,12 @@ public class GameManager : MonoBehaviour
         //Debug.Log(PlayerPrefs.GetString("lastCo") + "Player prefs lastco");
     }
 
+    public float foodAdd()
+    {
+        float a = 0f;
+        return a;
+    }
+
     public TimeSpan FromLastConnexion(DateTime startTime)
     {
 
@@ -119,17 +126,25 @@ public class GameManager : MonoBehaviour
 
     IEnumerator AutoSave()
     {
-        Debug.Log(food);
+        Debug.Log("before : " + food);
+        Debug.Log("before : " + mood);
+        Debug.Log("before : " + clean);
+        Debug.Log("before : " + mecanic);
         yield return new WaitForSeconds(120);
 
         //Modify Statistique before autosave.
-        TimeSpan dif = lastStatModif.Subtract(DateTime.UtcNow); //Calculate difference of time between lastautosave and now before modify stat
+        TimeSpan dif = -lastStatModif.Subtract(DateTime.UtcNow); //Calculate difference of time between lastautosave and now before modify stat
         lastStatModif = DateTime.UtcNow;
         food = StatModifier.foodModifier(food, dif);
-        mood = StatModifier.moodModifier(mood, dif);
-        mecanic = StatModifier.mecanicModifier(mecanic, dif);
+        
         clean = StatModifier.cleanModifier(clean, dif);
+        mecanic = StatModifier.mecanicModifier(mecanic, dif);
+        mood = StatModifier.moodModifier(mood, food, mecanic, dif);
         checkAutoSave = false;
+        Debug.Log("after : " + food);
+        Debug.Log("after : " + mood);
+        Debug.Log("after : " + clean);
+        Debug.Log("after : " + mecanic);
         ManagePlayerData.AutoSave(mood, food, clean, mecanic);
     }
 }
