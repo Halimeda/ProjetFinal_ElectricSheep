@@ -2,11 +2,47 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class StatModifier : MonoBehaviour
 {
-    
+    public GameManager gm;
 
+    private void Start()
+    {
+        gm = FindObjectOfType<GameManager>();
+    }
+
+    public void foodAdd()
+    {
+        if (gm.food <= 90)
+        {
+            gm.food += 10;
+        }
+        else if (gm.food > 0 && gm.food > 100)
+        {
+            gm.food = 100;
+        }
+        Debug.Log("after : " + gm.food);
+
+    }
+
+    public void moodAdd()
+    {
+        SceneManager.LoadScene("GetNumber");
+
+    }
+
+    public void cleanAdd()
+    {
+
+    }
+
+    public void mecanicAdd()
+    {
+
+    }
 
     public static float foodModifier(float food, TimeSpan deltaTime)
     {

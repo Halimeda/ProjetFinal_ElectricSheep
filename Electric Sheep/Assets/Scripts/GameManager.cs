@@ -8,17 +8,17 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager gm;
-    public RangeInt 
+   
 
     private DateTime startTime;
     private DateTime lastConnexion;
     private long temp;
     private int waitTime = 10;
 
-    private float mood;
-    private float food;
-    private float clean;
-    private float mecanic;
+    public float mood;
+    public float food;
+    public float clean;
+    public float mecanic;
 
     private bool checkAutoSave;
     private TimeSpan timeDiff;
@@ -89,11 +89,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log(PlayerPrefs.GetString("lastCo") + "Player prefs lastco");
     }
 
-    public float foodAdd()
-    {
-        float a = 0f;
-        return a;
-    }
+
 
     public TimeSpan FromLastConnexion(DateTime startTime)
     {
