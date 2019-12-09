@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(NewSceneWaitandStart());
 
         }
-        else if (PlayerPrefs.HasKey("isNewGame") == true && SceneManager.GetActiveScene().name == "StartScreen")
+        else if (PlayerPrefs.HasKey("isNewGame") == true && SceneManager.GetActiveScene().name == "MainScene")
         {
             Debug.Log("Only on start scene");
             StartCoroutine(MainSceneWaitandStart());
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
     IEnumerator NewSceneWaitandStart()
     {
         yield return new WaitForSeconds(waitTime);
-        SceneManager.LoadScene("NewGameOpenScene");
+        SceneManager.LoadScene("Intro");
 
     }
 
