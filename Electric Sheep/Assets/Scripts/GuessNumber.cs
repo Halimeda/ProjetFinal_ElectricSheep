@@ -15,7 +15,7 @@ public class GuessNumber : MonoBehaviour
     private bool isWin;
 
     private int chance;
-    private int gold;
+    private int credit;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class GuessNumber : MonoBehaviour
 
         isWin = false;
         chance = 0;
-        gold = 10;
+        credit = 10;
         Debug.Log(npcNumber);
     }
 
@@ -40,11 +40,13 @@ public class GuessNumber : MonoBehaviour
             text.text = ("You find it ! You try " + chance + " times !");
             if(chance == 1)
             {
-                Gold.playerGold = gold;
+                Credits.playerCredit += credit;
+                gm.mood += credit / 2;
             }
             else
             {
-                Gold.playerGold = gold - chance;
+                Credits.playerCredit += (credit - chance);
+                gm.mood += credit / 2; 
             }
             isWin = true;
             button.enabled = true;
@@ -88,7 +90,7 @@ public class GuessNumber : MonoBehaviour
 
         isWin = false;
         chance = 0;
-        gold = 10;
+        credit = 10;
         Debug.Log(npcNumber + " restry");
     }
 }

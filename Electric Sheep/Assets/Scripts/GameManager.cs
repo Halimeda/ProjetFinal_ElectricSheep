@@ -40,26 +40,25 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
     void Start()
     {
 
-        //Debug.Log(startTime + "Strart Time");
-        //Debug.Log(PlayerPrefs.GetString("lastCo") + "Player prefs lastco");
-        PlayerPrefs.SetString("lastCo", System.DateTime.Now.ToBinary().ToString());
+        Debug.Log(PlayerPrefs.GetString("isNewGame"));
+        Debug.Log(PlayerPrefs.GetString("lastCo") + "Player prefs lastco");
+        //PlayerPrefs.SetString("lastCo", System.DateTime.Now.ToBinary().ToString());
 
-        if (PlayerPrefs.HasKey("isNewGame") == false)
+        if (!PlayerPrefs.HasKey("isNewGame"))
         {
             Debug.Log("isnewgame");
             PlayerPrefs.SetString("isNewGame", "false");
             PlayerPrefs.SetFloat("mood", 80);
             PlayerPrefs.SetFloat("food", 80);
             PlayerPrefs.SetFloat("clean", 80);
-            PlayerPrefs.SetFloat("mecanic", 90);
+            PlayerPrefs.SetFloat("mecanic", 15);
             StartCoroutine(NewSceneWaitandStart());
 
         }
-        else if (PlayerPrefs.HasKey("isNewGame") == true && SceneManager.GetActiveScene().name == "MainScene")
+        else if (PlayerPrefs.GetString("isNewGame") == "false" && SceneManager.GetActiveScene().name == "StartScreen")
         {
             Debug.Log("Only on start scene");
             StartCoroutine(MainSceneWaitandStart());
@@ -76,7 +75,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // Update is called once per frame
     void Update()
     {
         if(checkAutoSave == false)
@@ -109,12 +107,15 @@ public class GameManager : MonoBehaviour
 
     IEnumerator MainSceneWaitandStart()
     {
+        Debug.Log("start Main Scene");
         yield return new WaitForSeconds(waitTime);
         SceneManager.LoadScene("MainScene");
     }
 
     IEnumerator NewSceneWaitandStart()
     {
+        Debug.Log("start Intro Scene");
+
         yield return new WaitForSeconds(waitTime);
         SceneManager.LoadScene("Intro");
 
@@ -122,25 +123,34 @@ public class GameManager : MonoBehaviour
 
     IEnumerator AutoSave()
     {
-        Debug.Log("before : " + food);
-        Debug.Log("before : " + mood);
-        Debug.Log("before : " + clean);
-        Debug.Log("before : " + mecanic);
+
         yield return new WaitForSeconds(120);
 
         //Modify Statistique before autosave.
         TimeSpan dif = -lastStatModif.Subtract(DateTime.UtcNow); //Calculate difference of time between lastautosave and now before modify stat
         lastStatModif = DateTime.UtcNow;
+
         food = StatModifier.foodModifier(food, dif);
-        
         clean = StatModifier.cleanModifier(clean, dif);
         mecanic = StatModifier.mecanicModifier(mecanic, dif);
-        mood = StatModifier.moodModifier(mood, food, mecanic, dif);
+        mood = StatModifier.moodModifier(mood, food, mecanic);
+
         checkAutoSave = false;
+
         Debug.Log("after : " + food);
         Debug.Log("after : " + mood);
         Debug.Log("after : " + clean);
         Debug.Log("after : " + mecanic);
+
         ManagePlayerData.AutoSave(mood, food, clean, mecanic);
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetString("lastCo", System.DateTime.Now.ToBinary().ToString());
+        PlayerPrefs.SetFloat("mood", mood);
+        PlayerPrefs.SetFloat("food", food);
+        PlayerPrefs.SetFloat("clean", clean);
+        PlayerPrefs.SetFloat("mecanic", mecanic);
     }
 }

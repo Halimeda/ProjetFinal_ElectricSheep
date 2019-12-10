@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Gold : MonoBehaviour
+
+public class Credits : MonoBehaviour
 {
-    public static int playerGold = 0;
+    public static int playerCredit = 0;
     public Text text;
 
     public void Start()
     {
-        text.text = "Gold : " + playerGold;
+        text.text = "Credits : " + playerCredit;
     }
 }
