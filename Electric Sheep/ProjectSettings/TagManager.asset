@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Fire
   - Planeta
-  - star
+  - Bonus
+  - Miss
   layers:
   - Default
   - TransparentFX
