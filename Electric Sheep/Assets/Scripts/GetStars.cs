@@ -1,11 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GetStars : MonoBehaviour
 {
-    public GameObject[] gameObjects;
     public int score = 0;
+    public GameObject canvasAgain;
+    public GameManager gm;
+
+
+    private void Start()
+    {
+        gm = FindObjectOfType<GameManager>();
+
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bonus")
@@ -22,14 +32,22 @@ public class GetStars : MonoBehaviour
     {
         if (collision.gameObject.tag == "Miss")
         {
+            canvasAgain.SetActive(true);
+            Credits.playerCredit += score;
             Destroy(this.gameObject);
             Debug.Log("You loose");
         }
     }
 
-    private void CreateBonusMiss()
+    public void PlayAgain()
     {
-        
+        SceneManager.LoadScene("Run");
+
     }
 
+    public void GoBack()
+    {
+        SceneManager.LoadScene("MainScene");
+
+    }
 }

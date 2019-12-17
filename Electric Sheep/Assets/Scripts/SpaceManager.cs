@@ -9,6 +9,7 @@ public class SpaceManager : MonoBehaviour {
     public ScrollDirection scrollDirection = ScrollDirection.LeftToRight;
     ScrollDirection direction;
 
+
     public static SpaceManager instance = null;
 
     void Start () {

@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
 
     }
 
@@ -53,8 +53,8 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetString("isNewGame", "false");
             PlayerPrefs.SetFloat("mood", 80);
             PlayerPrefs.SetFloat("food", 80);
-            PlayerPrefs.SetFloat("clean", 80);
-            PlayerPrefs.SetFloat("mecanic", 15);
+            PlayerPrefs.SetFloat("clean", 0);
+            PlayerPrefs.SetFloat("mecanic", 80);
             StartCoroutine(NewSceneWaitandStart());
 
         }

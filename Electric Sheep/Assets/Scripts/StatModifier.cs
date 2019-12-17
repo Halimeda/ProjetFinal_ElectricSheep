@@ -9,15 +9,34 @@ using UnityEngine.SceneManagement;
 public class StatModifier : MonoBehaviour
 {
     public GameManager gm;
+
     public Text foodStat;
     public Text moodStat;
     public Text mecanicStat;
     public Text cleanStat;
+
+    public GameObject alert;
+    public GameObject button;
+    public GameObject runner;
+    public GameObject guessNumber;
+
     public GameObject flare;
+    public GameObject bubble;
+    public GameObject bubble1;
+    public GameObject bubble2;
+
+    private bool test;
+
+
 
     private void Start()
     {
         gm = FindObjectOfType<GameManager>();
+        test = false;
+        alert.SetActive(false);
+        button.SetActive(false);
+        runner.SetActive(false);
+        guessNumber.SetActive(false);
     }
 
     private void Update()
@@ -36,6 +55,14 @@ public class StatModifier : MonoBehaviour
             flare.SetActive(false);
 
         }
+        if(test == false)
+        {
+            bubble.SetActive(false);
+            bubble1.SetActive(false);
+            bubble2.SetActive(false);
+            Debug.Log("false bubble");
+
+        }
 
     }
 
@@ -45,7 +72,17 @@ public class StatModifier : MonoBehaviour
     {
         if (gm.food <= 90)
         {
-            gm.food += 10;
+            if(Credits.playerCredit > 10)
+            {
+                gm.food += 10;
+                Credits.playerCredit -= 10;
+            }
+            else
+            {
+                alert.SetActive(true);
+                button.SetActive(true);
+                
+            }
         }
         else if (gm.food > 100)
         {
@@ -57,18 +94,89 @@ public class StatModifier : MonoBehaviour
 
     public void moodAdd() // Button Function Link with Guess Number Script !
     {
-        SceneManager.LoadScene("GetNumber");
+        runner.SetActive(true);
+        guessNumber.SetActive(true);
+    }
 
+    public void GuessNumber()
+    {
+        SceneManager.LoadScene("GetNumber");
+    }
+
+    public void Runner()
+    {
+        SceneManager.LoadScene("Run");
+    }
+
+    public void OkButton()
+    {
+        alert.SetActive(false);
+        button.SetActive(false);
     }
 
     public void cleanAdd() // Button Function
     {
 
+        if (gm.clean <= 90 && Credits.playerCredit > 10)
+        {
+            if (Credits.playerCredit > 10)
+            {
+                test = true;
+                bubble.SetActive(true);
+                bubble1.SetActive(true);
+                bubble2.SetActive(true);
+                gm.clean += 10;
+                Credits.playerCredit -= 10;
+                StartCoroutine(Bubble());
+            }
+            else
+            {
+                alert.SetActive(true);
+                button.SetActive(true);
+            }
+        }
+        else if (gm.clean > 100)
+        {
+            test = true;
+            bubble.SetActive(true);
+            bubble1.SetActive(true);
+            bubble2.SetActive(true);
+            gm.clean = 100;
+            StartCoroutine(Bubble());
+        }
+        Debug.Log("after : " + gm.clean);
+    }
+
+    IEnumerator Bubble()
+    {
+        yield return new WaitForSeconds(5f);
+        test = false;
+        //bubbles[rand].SetActive(false);
+        //bubble.SetActive(false);
+
     }
 
     public void mecanicAdd() // Button Function
     {
-        gm.mecanic += 10f;
+        if (gm.mecanic <= 90)
+        {
+            if (Credits.playerCredit > 10)
+            {
+                gm.mecanic += 10;
+                Credits.playerCredit -= 10;
+            }
+            else
+            {
+                alert.SetActive(true);
+                button.SetActive(true);
+
+            }
+        }
+        else if (gm.mecanic > 100)
+        {
+            gm.mecanic = 100;
+        }
+        Debug.Log("after : " + gm.mecanic);
     }
 
     public static float foodModifier(float food, TimeSpan deltaTime) //AutoModif down

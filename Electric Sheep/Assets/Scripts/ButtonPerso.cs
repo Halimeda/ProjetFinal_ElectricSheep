@@ -11,6 +11,7 @@ public class ButtonPerso : MonoBehaviour
     private void Start()
     {
         isClick = false;
+        menu.SetActive(false);
     }
 
     public void Menu()
