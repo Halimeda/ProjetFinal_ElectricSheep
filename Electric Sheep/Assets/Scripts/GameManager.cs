@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
     }
 

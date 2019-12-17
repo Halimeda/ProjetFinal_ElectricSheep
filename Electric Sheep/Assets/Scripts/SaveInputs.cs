@@ -17,9 +17,10 @@ public class SaveInputs : MonoBehaviour
         checkSheep = false;
     }
 
-    private void Update()
+
+    public void Continue()
     {
-        if(checkPlayer == true && checkSheep == true)
+        if (checkPlayer == true && checkSheep == true)
         {
             Debug.Log("Saveinput");
             SceneManager.LoadScene("MainScene");

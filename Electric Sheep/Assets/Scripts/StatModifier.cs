@@ -19,6 +19,7 @@ public class StatModifier : MonoBehaviour
     public GameObject button;
     public GameObject runner;
     public GameObject guessNumber;
+    public GameObject menu;
 
     public GameObject flare;
     public GameObject bubble;
@@ -72,10 +73,12 @@ public class StatModifier : MonoBehaviour
     {
         if (gm.food <= 90)
         {
-            if(Credits.playerCredit > 10)
+            if(Credits.playerCredit >= 10)
             {
                 gm.food += 10;
                 Credits.playerCredit -= 10;
+                menu.SetActive(false);
+
             }
             else
             {
@@ -88,6 +91,7 @@ public class StatModifier : MonoBehaviour
         {
             gm.food = 100;
         }
+
         Debug.Log("after : " + gm.food);
 
     }
@@ -117,15 +121,16 @@ public class StatModifier : MonoBehaviour
     public void cleanAdd() // Button Function
     {
 
-        if (gm.clean <= 90 && Credits.playerCredit > 10)
+        if (gm.clean <= 90 && Credits.playerCredit >= 10)
         {
-            if (Credits.playerCredit > 10)
+            if (Credits.playerCredit >= 10)
             {
                 test = true;
                 bubble.SetActive(true);
                 bubble1.SetActive(true);
                 bubble2.SetActive(true);
                 gm.clean += 10;
+                menu.SetActive(false);
                 Credits.playerCredit -= 10;
                 StartCoroutine(Bubble());
             }
@@ -160,10 +165,11 @@ public class StatModifier : MonoBehaviour
     {
         if (gm.mecanic <= 90)
         {
-            if (Credits.playerCredit > 10)
+            if (Credits.playerCredit >= 10)
             {
                 gm.mecanic += 10;
                 Credits.playerCredit -= 10;
+                menu.SetActive(false);
             }
             else
             {
@@ -176,6 +182,7 @@ public class StatModifier : MonoBehaviour
         {
             gm.mecanic = 100;
         }
+
         Debug.Log("after : " + gm.mecanic);
     }
 
