@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
 
     }
 
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("start Main Scene");
         yield return new WaitForSeconds(waitTime);
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("ComeBack");
     }
 
     IEnumerator NewSceneWaitandStart()

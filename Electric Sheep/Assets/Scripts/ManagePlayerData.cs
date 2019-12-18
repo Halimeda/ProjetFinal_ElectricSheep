@@ -18,6 +18,8 @@ public static class ManagePlayerData
         PlayerPrefs.SetFloat("clean", clean);
         PlayerPrefs.SetFloat("mecanic", mecanic);
 
+        PlayerPrefs.SetInt("credit", Credits.playerCredit);
+
         Debug.Log("Auto-Saving this date to prefs: " + System.DateTime.UtcNow);
     }
 
@@ -25,6 +27,13 @@ public static class ManagePlayerData
     {
         //Save the current system time as a string in the player prefs class
         PlayerPrefs.SetString("lastCo", System.DateTime.UtcNow.ToBinary().ToString());
+
+        PlayerPrefs.SetFloat("mood", GameManager.gm.mood);
+        PlayerPrefs.SetFloat("food", GameManager.gm.food);
+        PlayerPrefs.SetFloat("clean", GameManager.gm.clean);
+        PlayerPrefs.SetFloat("mecanic", GameManager.gm.mecanic);
+
+        PlayerPrefs.SetInt("credit", Credits.playerCredit);
 
         Debug.Log("Saving this date to prefs: " + System.DateTime.UtcNow);
 

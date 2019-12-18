@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Run.unity
     guid: 4eaca29a0bb5b384aa2aea8f3def97f7
+  - enabled: 1
+    path: Assets/Scenes/ComeBack.unity
+    guid: 7abec1ca43151d046817cb1ad394c3f5
   m_configObjects: {}

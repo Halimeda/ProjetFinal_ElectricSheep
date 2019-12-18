@@ -10,4 +10,9 @@ public class ContinueButton : MonoBehaviour
     {
         SceneManager.LoadScene("NewGameOpenScene");
     }
+
+    public void ContinueNotNew()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
 }

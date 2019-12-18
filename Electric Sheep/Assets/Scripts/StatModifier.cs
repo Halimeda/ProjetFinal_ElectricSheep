@@ -71,6 +71,8 @@ public class StatModifier : MonoBehaviour
 
     public void foodAdd() // Button Function
     {
+        runner.SetActive(false);
+        guessNumber.SetActive(false);
         if (gm.food <= 90)
         {
             if(Credits.playerCredit >= 10)
@@ -120,8 +122,9 @@ public class StatModifier : MonoBehaviour
 
     public void cleanAdd() // Button Function
     {
-
-        if (gm.clean <= 90 && Credits.playerCredit >= 10)
+        runner.SetActive(false);
+        guessNumber.SetActive(false);
+        if (gm.clean <= 90)
         {
             if (Credits.playerCredit >= 10)
             {
@@ -130,14 +133,15 @@ public class StatModifier : MonoBehaviour
                 bubble1.SetActive(true);
                 bubble2.SetActive(true);
                 gm.clean += 10;
-                menu.SetActive(false);
                 Credits.playerCredit -= 10;
+                menu.SetActive(false);
                 StartCoroutine(Bubble());
             }
             else
             {
                 alert.SetActive(true);
                 button.SetActive(true);
+
             }
         }
         else if (gm.clean > 100)
@@ -163,6 +167,8 @@ public class StatModifier : MonoBehaviour
 
     public void mecanicAdd() // Button Function
     {
+        runner.SetActive(false);
+        guessNumber.SetActive(false);
         if (gm.mecanic <= 90)
         {
             if (Credits.playerCredit >= 10)
