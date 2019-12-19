@@ -15,6 +15,8 @@ public class StatModifier : MonoBehaviour
     public Text mecanicStat;
     public Text cleanStat;
 
+    public AudioSource bubblesound;
+
     public GameObject alert;
     public GameObject button;
     public GameObject runner;
@@ -38,6 +40,10 @@ public class StatModifier : MonoBehaviour
         button.SetActive(false);
         runner.SetActive(false);
         guessNumber.SetActive(false);
+        foodStat.color = ColorSelection(gm.food);
+        moodStat.color = ColorSelection(gm.mood);
+        mecanicStat.color = ColorSelection(gm.mecanic);
+        cleanStat.color = ColorSelection(gm.clean);
     }
 
     private void Update()
@@ -47,7 +53,12 @@ public class StatModifier : MonoBehaviour
         mecanicStat.text = "Mecanic : " + Convert.ToUInt32(gm.mecanic);
         cleanStat.text = "Clean : " + Convert.ToUInt32(gm.clean);
 
-        if(gm.mecanic < 50)
+        foodStat.color = ColorSelection(gm.food);
+        moodStat.color = ColorSelection(gm.mood);
+        mecanicStat.color = ColorSelection(gm.mecanic);
+        cleanStat.color = ColorSelection(gm.clean);
+
+        if (gm.mecanic < 50)
         {
             flare.SetActive(true);
         }
@@ -67,7 +78,26 @@ public class StatModifier : MonoBehaviour
 
     }
 
+    public Color ColorSelection(float stat)
+    {
+        if (stat >= 80)
+        {
+            return(Color.green);
+        }
 
+        else if (stat < 80 && stat >= 50)
+        {
+            return(Color.yellow);
+        }
+        else if (stat < 50 && stat >= 25)
+        {
+            return (Color.red);
+        }
+        else
+        {
+            return (Color.black);
+        }
+    }
 
     public void foodAdd() // Button Function
     {
@@ -88,12 +118,13 @@ public class StatModifier : MonoBehaviour
                 button.SetActive(true);
                 
             }
+            
         }
         else if (gm.food > 100)
         {
             gm.food = 100;
         }
-
+        foodStat.color = ColorSelection(gm.food);
         Debug.Log("after : " + gm.food);
 
     }
@@ -102,6 +133,7 @@ public class StatModifier : MonoBehaviour
     {
         runner.SetActive(true);
         guessNumber.SetActive(true);
+        moodStat.color = ColorSelection(gm.mood);
     }
 
     public void GuessNumber()
@@ -128,6 +160,7 @@ public class StatModifier : MonoBehaviour
         {
             if (Credits.playerCredit >= 10)
             {
+                bubblesound.Play();
                 test = true;
                 bubble.SetActive(true);
                 bubble1.SetActive(true);
@@ -146,6 +179,7 @@ public class StatModifier : MonoBehaviour
         }
         else if (gm.clean > 100)
         {
+            bubblesound.Play();
             test = true;
             bubble.SetActive(true);
             bubble1.SetActive(true);
@@ -188,6 +222,8 @@ public class StatModifier : MonoBehaviour
         {
             gm.mecanic = 100;
         }
+
+        mecanicStat.color = ColorSelection(gm.mecanic);
 
         Debug.Log("after : " + gm.mecanic);
     }

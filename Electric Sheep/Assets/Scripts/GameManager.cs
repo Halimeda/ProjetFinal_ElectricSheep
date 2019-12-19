@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
     }
 
@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetFloat("food", 80);
             PlayerPrefs.SetFloat("clean", 0);
             PlayerPrefs.SetFloat("mecanic", 80);
+            PlayerPrefs.SetInt("credit", 0);
             StartCoroutine(NewSceneWaitandStart());
 
         }
@@ -69,6 +70,8 @@ public class GameManager : MonoBehaviour
         food = PlayerPrefs.GetFloat("food");
         clean = PlayerPrefs.GetFloat("clean");
         mecanic = PlayerPrefs.GetFloat("mecanic");
+        Credits.playerCredit = PlayerPrefs.GetInt("credit");
+
 
         timeDiff = this.FromLastConnexion(startTime);
         //Debug.Log(lastCoDiff + "Timespan last co");
@@ -83,11 +86,20 @@ public class GameManager : MonoBehaviour
             checkAutoSave = true;
             Debug.Log("start coroutine");
         }
+
+        if(mood == 0 && food == 0 && clean == 0 && mecanic == 0)
+        {
+            GameOver();
+        }
         Debug.Log("update");
         //Debug.Log(PlayerPrefs.GetString("lastCo") + "Player prefs lastco");
     }
 
-
+    private void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
+        Debug.Log("GameOver");
+    }
 
     public TimeSpan FromLastConnexion(DateTime startTime)
     {

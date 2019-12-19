@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ComeBack.unity
     guid: 7abec1ca43151d046817cb1ad394c3f5
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 301043156e07679459f915a4f8faf7f4
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: a94243bcdc0caab4d8c16f4b112b55a3
   m_configObjects: {}

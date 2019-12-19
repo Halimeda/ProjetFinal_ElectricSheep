@@ -10,16 +10,23 @@ public class GetStars : MonoBehaviour
     public GameObject canvasAgain;
     public GameManager gm;
 
+    public AudioSource mainmusic;
+    public AudioSource getIt;
+    public AudioSource miss;
+
 
     private void Start()
     {
         gm = FindObjectOfType<GameManager>();
+        mainmusic = FindObjectOfType<GameManager>().GetComponent<AudioSource>();
+        mainmusic.mute = true;
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bonus")
         {
+            getIt.Play();
             score++;
             collision.transform.SetPositionAndRotation(new Vector3 (collision.transform.position.x, 350, 0), Quaternion.identity) ;
             Debug.Log(score);
@@ -32,6 +39,7 @@ public class GetStars : MonoBehaviour
     {
         if (collision.gameObject.tag == "Miss")
         {
+            miss.Play();
             canvasAgain.SetActive(true);
             Credits.playerCredit += score;
             Destroy(this.gameObject);
@@ -47,6 +55,8 @@ public class GetStars : MonoBehaviour
 
     public void GoBack()
     {
+        mainmusic.mute = false;
+
         SceneManager.LoadScene("MainScene");
 
     }

@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 public class GuessNumber : MonoBehaviour
 {
     private int npcNumber;
+
+    public AudioSource mainmusic;
+    public AudioSource getIt;
+
     public Canvas button;
     public InputField input;
     public Text text;
@@ -20,10 +24,11 @@ public class GuessNumber : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mainmusic = FindObjectOfType<GameManager>().GetComponent<AudioSource>();
+        mainmusic.mute = true;
         System.Random rdm = new System.Random();
         npcNumber = rdm.Next(0, 10);
         button.enabled = false;
-
         isWin = false;
         chance = 0;
         credit = 10;
@@ -40,6 +45,7 @@ public class GuessNumber : MonoBehaviour
             text.text = ("You find it ! You try " + chance + " times !");
             if(chance == 1)
             {
+                getIt.Play();
                 Credits.playerCredit += credit;
                 gm.mood += credit / 2;
             }
@@ -78,6 +84,8 @@ public class GuessNumber : MonoBehaviour
 
     public void toMainScene()
     {
+        mainmusic.mute = false;
+
         SceneManager.LoadScene("MainScene");
 
     }
