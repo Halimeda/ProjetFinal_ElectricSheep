@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameOver");
     }
 
+
     public TimeSpan FromLastConnexion(DateTime startTime)
     {
 
