@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
 
     }
 
@@ -51,9 +51,9 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("isnewgame");
             PlayerPrefs.SetString("isNewGame", "false");
-            PlayerPrefs.SetFloat("mood", 80);
+            PlayerPrefs.SetFloat("mood", 50);
             PlayerPrefs.SetFloat("food", 80);
-            PlayerPrefs.SetFloat("clean", 0);
+            PlayerPrefs.SetFloat("clean", 20);
             PlayerPrefs.SetFloat("mecanic", 80);
             PlayerPrefs.SetInt("credit", 0);
             StartCoroutine(NewSceneWaitandStart());
@@ -62,19 +62,22 @@ public class GameManager : MonoBehaviour
         else if (PlayerPrefs.GetString("isNewGame") == "false" && SceneManager.GetActiveScene().name == "StartScreen")
         {
             Debug.Log("Only on start scene");
+            timeDiff = this.FromLastConnexion(startTime);
+
+            food = StatModifier.foodModifier(food, timeDiff);
+            clean = StatModifier.cleanModifier(clean, timeDiff);
+            mecanic = StatModifier.mecanicModifier(mecanic, timeDiff);
+            mood = StatModifier.moodModifier(mood, food, mecanic);
             StartCoroutine(MainSceneWaitandStart());
         }
 
-        checkAutoSave = false;
         mood = PlayerPrefs.GetFloat("mood");
         food = PlayerPrefs.GetFloat("food");
         clean = PlayerPrefs.GetFloat("clean");
         mecanic = PlayerPrefs.GetFloat("mecanic");
         Credits.playerCredit = PlayerPrefs.GetInt("credit");
 
-
-        timeDiff = this.FromLastConnexion(startTime);
-        //Debug.Log(lastCoDiff + "Timespan last co");
+        checkAutoSave = false;
     }
 
 
@@ -87,7 +90,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("start coroutine");
         }
 
-        if(mood == 0 && food == 0 && clean == 0 && mecanic == 0)
+        if(mood == 0 && food == 0 && clean == 0 && mecanic == 0 && SceneManager.GetActiveScene().name == "StartScreen")
         {
             GameOver();
         }
@@ -97,8 +100,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        SceneManager.LoadScene("GameOver");
         Debug.Log("GameOver");
+        SceneManager.LoadScene("GameOver");
     }
 
 
@@ -137,7 +140,7 @@ public class GameManager : MonoBehaviour
     IEnumerator AutoSave()
     {
 
-        yield return new WaitForSeconds(120);
+        yield return new WaitForSeconds(60);
 
         //Modify Statistique before autosave.
         TimeSpan dif = -lastStatModif.Subtract(DateTime.UtcNow); //Calculate difference of time between lastautosave and now before modify stat
@@ -158,12 +161,15 @@ public class GameManager : MonoBehaviour
         ManagePlayerData.AutoSave(mood, food, clean, mecanic);
     }
 
-    private void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
         PlayerPrefs.SetString("lastCo", System.DateTime.Now.ToBinary().ToString());
         PlayerPrefs.SetFloat("mood", mood);
         PlayerPrefs.SetFloat("food", food);
         PlayerPrefs.SetFloat("clean", clean);
         PlayerPrefs.SetFloat("mecanic", mecanic);
+        //PlayerPrefs.DeleteAll();
+
+        Application.Quit();
     }
 }

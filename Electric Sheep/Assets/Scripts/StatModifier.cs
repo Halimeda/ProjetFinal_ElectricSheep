@@ -105,9 +105,9 @@ public class StatModifier : MonoBehaviour
         guessNumber.SetActive(false);
         if (gm.food <= 90)
         {
-            if(Credits.playerCredit >= 10)
+            if(Credits.playerCredit >= 5)
             {
-                gm.food += 10;
+                gm.food += 5;
                 Credits.playerCredit -= 10;
                 menu.SetActive(false);
 
@@ -158,7 +158,7 @@ public class StatModifier : MonoBehaviour
         guessNumber.SetActive(false);
         if (gm.clean <= 90)
         {
-            if (Credits.playerCredit >= 10)
+            if (Credits.playerCredit >= 5)
             {
                 bubblesound.Play();
                 test = true;
@@ -166,7 +166,7 @@ public class StatModifier : MonoBehaviour
                 bubble1.SetActive(true);
                 bubble2.SetActive(true);
                 gm.clean += 10;
-                Credits.playerCredit -= 10;
+                Credits.playerCredit -= 5;
                 menu.SetActive(false);
                 StartCoroutine(Bubble());
             }
@@ -205,10 +205,10 @@ public class StatModifier : MonoBehaviour
         guessNumber.SetActive(false);
         if (gm.mecanic <= 90)
         {
-            if (Credits.playerCredit >= 10)
+            if (Credits.playerCredit >= 5)
             {
                 gm.mecanic += 10;
-                Credits.playerCredit -= 10;
+                Credits.playerCredit -= 5;
                 menu.SetActive(false);
             }
             else
@@ -232,7 +232,7 @@ public class StatModifier : MonoBehaviour
     {
         float.TryParse(deltaTime.Minutes.ToString(), out float temp);
 
-        food = food - temp * 0.03f;
+        food = food - temp * 0.3f;
 
         if(food <= 0)
         {
@@ -249,7 +249,7 @@ public class StatModifier : MonoBehaviour
         System.Random rdm = new System.Random();
         float rand = rdm.Next(0, 5);
 
-        mood = mood - (((food + mecanic) * 0.03f )- rand) * 0.5f;
+        mood = mood - (((food + mecanic) /2 )- rand);
 
         if(mood <= 0)
         {
@@ -268,7 +268,7 @@ public class StatModifier : MonoBehaviour
         System.Random rdm = new System.Random();
         float rand = rdm.Next(0, 5);
 
-        mecanic = mecanic - temp * 0.02f - rand;
+        mecanic = mecanic - temp/2 - rand;
 
         if(mecanic <= 0)
         {
@@ -283,8 +283,9 @@ public class StatModifier : MonoBehaviour
     public static float cleanModifier(float clean, TimeSpan deltaTime) //AutoModif down
     {
         float.TryParse(deltaTime.Minutes.ToString(), out float temp);
+        Debug.Log("temp" + temp);
 
-        clean = clean - temp * 0.03f;
+        clean = clean - (temp/2);
 
         if(clean <= 0)
         {

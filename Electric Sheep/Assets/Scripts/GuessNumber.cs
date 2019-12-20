@@ -42,17 +42,17 @@ public class GuessNumber : MonoBehaviour
         Debug.Log(playerNumber);
         if (playerNumber == npcNumber && chance <= 5)
         {
-            text.text = ("You find it ! You try " + chance + " times !");
+            text.text = ("You find it ! You try " +  chance + " times !");
             if(chance == 1)
             {
                 getIt.Play();
                 Credits.playerCredit += credit;
-                gm.mood += credit / 2;
+                gm.mood += 10;
             }
             else
             {
                 Credits.playerCredit += (credit - chance);
-                gm.mood += credit / 2; 
+                gm.mood += 5; 
             }
             isWin = true;
             button.enabled = true;
@@ -95,6 +95,7 @@ public class GuessNumber : MonoBehaviour
         System.Random rdm = new System.Random();
         npcNumber = rdm.Next(0, 10);
         button.enabled = false;
+        text.text = "Try to find the number ! ";
 
         isWin = false;
         chance = 0;

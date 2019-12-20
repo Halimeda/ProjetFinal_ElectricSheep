@@ -3273,16 +3273,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quit App
       objectReference: {fileID: 0}
-    - target: {fileID: 8237474131089966469, guid: 013e2f037604f87449f31d01f668390d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 608961285}
-    - target: {fileID: 8237474131089966469, guid: 013e2f037604f87449f31d01f668390d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: QuitApp
-      objectReference: {fileID: 0}
     - target: {fileID: 8237474131089966468, guid: 013e2f037604f87449f31d01f668390d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3387,6 +3377,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237474131089966469, guid: 013e2f037604f87449f31d01f668390d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 203999286}
+    - target: {fileID: 8237474131089966469, guid: 013e2f037604f87449f31d01f668390d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnApplicationQuit
       objectReference: {fileID: 0}
     - target: {fileID: 8237474131467945639, guid: 013e2f037604f87449f31d01f668390d,
         type: 3}
@@ -3869,16 +3869,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Credit
       objectReference: {fileID: 0}
-    - target: {fileID: 8237474131089966469, guid: 013e2f037604f87449f31d01f668390d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 924396092}
-    - target: {fileID: 8237474131089966469, guid: 013e2f037604f87449f31d01f668390d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Credit
-      objectReference: {fileID: 0}
     - target: {fileID: 8237474131089966468, guid: 013e2f037604f87449f31d01f668390d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3983,6 +3973,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237474131089966469, guid: 013e2f037604f87449f31d01f668390d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 924396092}
+    - target: {fileID: 8237474131089966469, guid: 013e2f037604f87449f31d01f668390d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Credit
       objectReference: {fileID: 0}
     - target: {fileID: 8237474131467945639, guid: 013e2f037604f87449f31d01f668390d,
         type: 3}

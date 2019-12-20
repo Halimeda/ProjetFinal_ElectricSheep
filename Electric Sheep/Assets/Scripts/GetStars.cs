@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
@@ -9,7 +10,7 @@ public class GetStars : MonoBehaviour
     public int score = 0;
     public GameObject canvasAgain;
     public GameManager gm;
-
+    public Text scoreText;
     public AudioSource mainmusic;
     public AudioSource getIt;
     public AudioSource miss;
@@ -20,7 +21,13 @@ public class GetStars : MonoBehaviour
         gm = FindObjectOfType<GameManager>();
         mainmusic = FindObjectOfType<GameManager>().GetComponent<AudioSource>();
         mainmusic.mute = true;
+        scoreText.text = "Score : " + 0;
 
+    }
+
+    private void Update()
+    {
+        scoreText.text = "Score : " + score;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -49,6 +56,7 @@ public class GetStars : MonoBehaviour
 
     public void PlayAgain()
     {
+        gm.mood += 5;
         SceneManager.LoadScene("Run");
 
     }
@@ -56,6 +64,7 @@ public class GetStars : MonoBehaviour
     public void GoBack()
     {
         mainmusic.mute = false;
+        gm.mood += 5;
 
         SceneManager.LoadScene("MainScene");
 
